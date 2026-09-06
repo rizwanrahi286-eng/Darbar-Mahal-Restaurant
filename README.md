@@ -1,2 +1,2 @@
 # Darbar-Mahal-Restaurant
-This repository war the restaurant side
+This repository was the restaurant side
