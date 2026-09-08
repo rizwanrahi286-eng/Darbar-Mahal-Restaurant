@@ -138,7 +138,7 @@
 
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+      font-size: clamp(1.9rem, 3.6vw, 2.6rem);
       font-weight: 700;
       color: var(--burgundy);
       line-height: 1.25;
@@ -525,20 +525,18 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      padding: 20px 0;
-      transition: var(--transition);
-      background: rgba(26, 26, 26, 0.35);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      padding: 14px 0;
+      transition: background 0.35s ease, padding 0.35s ease, box-shadow 0.35s ease;
+      background: transparent;
     }
 
     #navbar.scrolled {
       background: rgba(20, 6, 12, 0.96);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      padding: 12px 0;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.55);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      padding: 10px 0;
+      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     }
 
     .nav-inner {
@@ -550,63 +548,54 @@
 
     .nav-brand {
       font-family: 'Playfair Display', serif;
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: var(--gold);
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-shrink: 0;
       transition: var(--transition);
     }
 
-    .nav-brand i {
-      color: var(--gold);
-      font-size: 1.2rem;
-      filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
-      transition: var(--transition);
-    }
-
     .brand-logo {
-      height: 42px;
+      height: 38px;
       width: auto;
       object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.45));
+      filter: drop-shadow(0 2px 6px rgba(212, 175, 55, 0.45));
       transition: transform 0.3s ease;
     }
 
     .nav-brand:hover .brand-logo {
-      transform: scale(1.08) rotate(-3deg);
-    }
-
-    .nav-brand:hover i {
-      transform: translateY(-2px) scale(1.1);
+      transform: scale(1.06) rotate(-2deg);
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       list-style: none;
+      margin: 0;
     }
 
     .nav-links a {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.9);
       text-decoration: none;
-      padding: 8px 14px;
+      padding: 6px 12px;
       position: relative;
       transition: var(--transition);
+      letter-spacing: 0.02em;
     }
 
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: 2px;
-      left: 14px;
-      right: 14px;
+      bottom: 0px;
+      left: 12px;
+      right: 12px;
       height: 2px;
       background: var(--gradient-gold);
       transform: scaleX(0);
@@ -616,7 +605,7 @@
 
     .nav-links a:hover,
     .nav-links a.active {
-      color: var(--gold);
+      color: var(--gold-light);
     }
 
     .nav-links a:hover::after,
@@ -627,15 +616,16 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      flex-shrink: 0;
     }
 
     .cart-btn-nav {
       background: rgba(212, 175, 55, 0.12);
-      border: 1.5px solid rgba(212, 175, 55, 0.4);
+      border: 1.5px solid rgba(212, 175, 55, 0.35);
       color: var(--gold);
-      width: 44px;
-      height: 44px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -644,6 +634,7 @@
       cursor: pointer;
       transition: var(--transition);
       text-decoration: none;
+      font-size: 0.9rem;
     }
 
     .cart-btn-nav:hover {
@@ -655,20 +646,28 @@
 
     .cart-badge {
       position: absolute;
-      top: -4px;
-      right: -4px;
+      top: -3px;
+      right: -3px;
       background: var(--burgundy);
       color: var(--white);
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1.5px solid var(--gold);
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-nav-book {
+      padding: 9px 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: 50px;
+      box-shadow: 0 3px 15px rgba(212, 175, 55, 0.35);
     }
 
     .hamburger {
@@ -833,37 +832,8 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      padding: 120px 20px 80px;
-      max-width: 900px;
-    }
-
-    .hero-crown {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: rgba(212, 175, 55, 0.15);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      margin-bottom: 24px;
-      animation: crown-float 4s ease-in-out infinite;
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.25);
-    }
-
-    .hero-crown i {
-      color: var(--gold);
-      font-size: 1.8rem;
-      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
-    }
-
-    @keyframes crown-float {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-10px) rotate(2deg);
-      }
+      padding: 100px 20px 60px;
+      max-width: 860px;
     }
 
     .hero-badge {
@@ -871,11 +841,11 @@
       background: rgba(212, 175, 55, 0.16);
       border: 1px solid rgba(212, 175, 55, 0.45);
       color: var(--gold-light);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.24em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      padding: 6px 22px;
+      padding: 6px 20px;
       border-radius: 50px;
       margin-bottom: 20px;
       backdrop-filter: blur(8px);
@@ -883,13 +853,13 @@
 
     .hero-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 8vw, 5.8rem);
+      font-size: clamp(2.2rem, 5.2vw, 3.8rem);
       font-weight: 800;
       color: var(--white);
-      line-height: 1.1;
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+      line-height: 1.15;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
     }
 
     .hero-title-gold {
@@ -902,11 +872,11 @@
 
     .hero-tagline-wrap {
       font-family: 'Poppins', sans-serif;
-      font-size: clamp(1.2rem, 3.2vw, 1.8rem);
+      font-size: clamp(1rem, 2.4vw, 1.35rem);
       font-weight: 300;
       color: var(--cream);
-      margin-bottom: 20px;
-      min-height: 40px;
+      margin-bottom: 16px;
+      min-height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -926,19 +896,19 @@
     }
 
     .hero-divider {
-      width: 120px;
-      height: 3px;
+      width: 100px;
+      height: 2px;
       background: var(--gradient-gold);
-      margin: 20px auto 28px;
+      margin: 16px auto 24px;
       border-radius: 2px;
       box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
     }
 
     .hero-subtitle {
-      font-size: clamp(0.95rem, 2vw, 1.15rem);
-      color: rgba(253, 245, 230, 0.85);
-      max-width: 620px;
-      margin: 0 auto 40px;
+      font-size: clamp(0.88rem, 1.6vw, 1.02rem);
+      color: rgba(253, 245, 230, 0.88);
+      max-width: 580px;
+      margin: 0 auto 34px;
       font-weight: 300;
       line-height: 1.8;
     }
@@ -2186,18 +2156,18 @@
     /* Floating WhatsApp Button */
     #floatingWhatsapp {
       position: fixed;
-      bottom: 95px;
-      right: 30px;
-      width: 58px;
-      height: 58px;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
       background: #25D366;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--white);
-      font-size: 1.8rem;
-      box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45);
+      font-size: 1.45rem;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
       z-index: 998;
       text-decoration: none;
       transition: var(--transition);
@@ -2771,25 +2741,25 @@
       color: var(--gold);
     }
 
-    /* Back to top button */
+    /* Back to top button (sits directly above WhatsApp button) */
     #backToTop {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 82px;
+      right: 24px;
       width: 48px;
       height: 48px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--burgundy), var(--burgundy-dark));
       border: 1.5px solid rgba(212, 175, 55, 0.5);
       color: var(--gold);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       cursor: pointer;
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 997;
       transition: var(--transition);
-      box-shadow: 0 4px 20px rgba(110, 29, 46, 0.4);
+      box-shadow: 0 4px 18px rgba(110, 29, 46, 0.4);
     }
 
     #backToTop.show {
@@ -3025,15 +2995,18 @@
         width: 100%;
       }
       #floatingWhatsapp {
-        bottom: 85px;
-        right: 20px;
-        width: 52px;
-        height: 52px;
-        font-size: 1.6rem;
-      }
-      #backToTop {
         bottom: 20px;
         right: 20px;
+        width: 44px;
+        height: 44px;
+        font-size: 1.3rem;
+      }
+      #backToTop {
+        bottom: 74px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        font-size: 1rem;
       }
     }
 
@@ -3118,7 +3091,6 @@
       <div class="nav-inner">
         <a href="#hero" class="nav-brand" aria-label="Darbar Mahal Home">
           <img src="images/darbar-mahal-logo.png" alt="Darbar Mahal Crest" class="brand-logo" />
-          <i class="fas fa-crown"></i>
           <span>Darbar Mahal</span>
         </a>
 
@@ -3127,10 +3099,7 @@
           <li><a href="#menu">Menu</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#reviews">Reviews</a></li>
-          <li><a href="#reservation">Reservation</a></li>
-          <li><a href="#order-online">Order Online</a></li>
           <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#blog">Blog</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
 
@@ -3139,7 +3108,7 @@
             <i class="fas fa-shopping-bag"></i>
             <span class="cart-badge" id="navCartCount">0</span>
           </a>
-          <a href="#reservation" class="btn btn-gold ripple-effect">
+          <a href="#reservation" class="btn btn-gold btn-nav-book ripple-effect">
             <i class="fas fa-calendar-check"></i> Book Table
           </a>
           <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
@@ -3193,10 +3162,6 @@
       </div>
 
       <div class="hero-content">
-        <div class="hero-crown" data-aos="zoom-in" data-aos-duration="800">
-          <i class="fas fa-crown"></i>
-        </div>
-        <br />
         <span class="hero-badge" data-aos="fade-down" data-aos-delay="200">
           <i class="fas fa-star" style="font-size: 0.65rem;"></i> &nbsp;Est. 2019 • Umerkot, Pakistan&nbsp; <i class="fas fa-star" style="font-size: 0.65rem;"></i>
         </span>
