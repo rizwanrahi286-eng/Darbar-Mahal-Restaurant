@@ -109,6 +109,109 @@
       box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
     }
 
+    /* ==========================================================================
+       ROYAL LUXURY CUSTOM CURSOR
+       ========================================================================== */
+    .custom-cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 8px;
+      height: 8px;
+      margin-top: -4px;
+      margin-left: -4px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.95), 0 0 3px #ffffff;
+      transition: opacity 0.3s ease, width 0.22s cubic-bezier(0.25, 1, 0.5, 1), height 0.22s cubic-bezier(0.25, 1, 0.5, 1), margin 0.22s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+      opacity: 0;
+      will-change: transform;
+    }
+
+    .custom-cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      margin-top: -18px;
+      margin-left: -18px;
+      border: 1.5px solid rgba(212, 175, 55, 0.7);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
+      transition: opacity 0.3s ease, width 0.28s cubic-bezier(0.25, 1, 0.5, 1), height 0.28s cubic-bezier(0.25, 1, 0.5, 1), margin 0.28s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+      opacity: 0;
+      will-change: transform;
+    }
+
+    /* Hover state over links, buttons, and interactive cards */
+    .custom-cursor-ring.cursor-hover {
+      width: 56px;
+      height: 56px;
+      margin-top: -28px;
+      margin-left: -28px;
+      border-color: var(--gold);
+      background: rgba(212, 175, 55, 0.12);
+      box-shadow: 0 0 26px rgba(212, 175, 55, 0.45), inset 0 0 10px rgba(212, 175, 55, 0.18);
+    }
+
+    .custom-cursor-dot.cursor-hover {
+      width: 10px;
+      height: 10px;
+      margin-top: -5px;
+      margin-left: -5px;
+      background: #ffffff;
+      box-shadow: 0 0 12px #ffffff, 0 0 8px var(--gold);
+    }
+
+    /* Active clicking state */
+    .custom-cursor-ring.cursor-clicking {
+      width: 28px;
+      height: 28px;
+      margin-top: -14px;
+      margin-left: -14px;
+      border-color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.32);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+    }
+
+    .custom-cursor-dot.cursor-clicking {
+      width: 5px;
+      height: 5px;
+      margin-top: -2.5px;
+      margin-left: -2.5px;
+    }
+
+    /* Hide standard OS pointer on non-touch screens when custom cursor is active */
+    @media (hover: hover) and (pointer: fine) {
+      body.custom-cursor-enabled,
+      body.custom-cursor-enabled a,
+      body.custom-cursor-enabled button,
+      body.custom-cursor-enabled .btn,
+      body.custom-cursor-enabled input,
+      body.custom-cursor-enabled select,
+      body.custom-cursor-enabled textarea,
+      body.custom-cursor-enabled label,
+      body.custom-cursor-enabled [role="button"],
+      body.custom-cursor-enabled [role="tab"],
+      body.custom-cursor-enabled .menu-card,
+      body.custom-cursor-enabled .gallery-item {
+        cursor: none !important;
+      }
+    }
+
+    /* Never show custom cursor on mobile / touch devices */
+    @media (hover: none) or (pointer: coarse) {
+      .custom-cursor-dot,
+      .custom-cursor-ring {
+        display: none !important;
+      }
+    }
+
     /* Container & Layout */
     .container {
       max-width: 1240px;
@@ -3083,6 +3186,10 @@
     </div>
   </div>
 
+  <!-- Royal Custom Cursor -->
+  <div class="custom-cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="custom-cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
   <!-- Toast Notification Container -->
   <div id="toastContainer"></div>
 
@@ -5246,6 +5353,94 @@
 
       target.appendChild(circle);
     });
+
+    /* ==========================================================================
+       15. ROYAL CUSTOM CURSOR INTERACTION
+       ========================================================================== */
+    (function initRoyalCursor() {
+      // Disable on touch / mobile devices
+      if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return;
+
+      var dot = document.getElementById('cursorDot');
+      var ring = document.getElementById('cursorRing');
+      if (!dot || !ring) return;
+
+      document.body.classList.add('custom-cursor-enabled');
+
+      var mouseX = -100;
+      var mouseY = -100;
+      var ringX = -100;
+      var ringY = -100;
+      var isVisible = false;
+
+      // Mouse Move: Track immediately for dot, smoothly for ring
+      window.addEventListener('mousemove', function (e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        dot.style.transform = 'translate3d(' + mouseX + 'px, ' + mouseY + 'px, 0)';
+
+        if (!isVisible) {
+          isVisible = true;
+          dot.style.opacity = '1';
+          ring.style.opacity = '1';
+          ringX = mouseX;
+          ringY = mouseY;
+        }
+      });
+
+      // Smooth lag animation for outer ring via requestAnimationFrame
+      function renderRing() {
+        if (isVisible) {
+          ringX += (mouseX - ringX) * 0.18;
+          ringY += (mouseY - ringY) * 0.18;
+          ring.style.transform = 'translate3d(' + ringX + 'px, ' + ringY + 'px, 0)';
+        }
+        requestAnimationFrame(renderRing);
+      }
+      requestAnimationFrame(renderRing);
+
+      // Interactive Elements Hover Tracking
+      var interactiveSelector = 'a, button, .btn, input, select, textarea, label, [role="button"], [role="tab"], .menu-card, .gallery-item, .blog-card, .faq-question, .counter, .filter-checkbox-wrap, .cart-item-btn';
+
+      document.addEventListener('mouseover', function (e) {
+        if (e.target.closest(interactiveSelector)) {
+          ring.classList.add('cursor-hover');
+          dot.classList.add('cursor-hover');
+        }
+      });
+
+      document.addEventListener('mouseout', function (e) {
+        if (e.target.closest(interactiveSelector)) {
+          ring.classList.remove('cursor-hover');
+          dot.classList.remove('cursor-hover');
+        }
+      });
+
+      // Click Press Action
+      window.addEventListener('mousedown', function () {
+        ring.classList.add('cursor-clicking');
+        dot.classList.add('cursor-clicking');
+      });
+
+      window.addEventListener('mouseup', function () {
+        ring.classList.remove('cursor-clicking');
+        dot.classList.remove('cursor-clicking');
+      });
+
+      // Window blur & boundary management
+      document.addEventListener('mouseleave', function () {
+        isVisible = false;
+        dot.style.opacity = '0';
+        ring.style.opacity = '0';
+      });
+
+      document.addEventListener('mouseenter', function () {
+        isVisible = true;
+        dot.style.opacity = '1';
+        ring.style.opacity = '1';
+      });
+    })();
   </script>
 </body>
 
